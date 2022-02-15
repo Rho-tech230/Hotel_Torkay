@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title%}Reservation Page{% endblock %}
+{% block content%}
+<div class="container">
+<h2>Booking for room : {{room.type}}</h2>
+    <img src="{{room.image.url}}" width="500" height="300">
+    <p>Dates {{date1}} - {{date2}}</p>
+    <p> Nombre de nuits : {{nights}}</p>
+    <p> Prix total: {{price}}</p>
+    <i>If you want to book this room, click on the button below</i>
+    <form method="post">
+        {%csrf_token%}
+        <input class='btn btn-warning' type="submit" value="Confirm reservation">
+    </form>
+{% endblock %}

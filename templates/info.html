@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title%}Info Page{% endblock %}
+{% block content%}
+<div class="container">
+<h2>Enter the dates you want to book a room</h2>
+<form class='form-inline my-2' method="post">
+    {% csrf_token %}
+    {{form|crispy}}
+
+    <input class="btn btn-outline-success ml-4" type="submit" value="CheckIn">
+</form>
+    <h2> Our rooms </h2>
+    <div class="row">
+        {% for room in rooms %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-img">
+                    <img src="{{room.image.url}}" width="350" height="200">
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li class="card-text">{{room.type}} room</li>
+                        <li class="card-text">Beds : {{room.beds}}</li>
+                        <li class="card-text">Price per night : {{room.price}} fCFA </li>
+
+                    </ul>
+                </div>
+                {% if dateIN %}<a class="btn btn-outline-primary"  href=" {% url 'reservation' dateIN dateOUT room.id %} ">Book this room</a>
+                {% else %} <b><i>You need to fill the form above in order to book a room</i></b>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
